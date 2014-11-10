@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <fragment
+        android:name="ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostListFragment"
+        android:id="@+id/post_list_fragment"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_weight="25"
+        tools:layout="@layout/post_list_fragment"></fragment>
+
+    <fragment
+        android:name="ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostViewerFragment"
+        android:id="@+id/post_fragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="75"
+        tools:layout="@layout/post_fragment"></fragment>
+    </LinearLayout>
