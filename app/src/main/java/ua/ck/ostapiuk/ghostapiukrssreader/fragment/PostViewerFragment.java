@@ -11,9 +11,6 @@ import android.widget.Toast;
 
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
 
-/**
- * Created by Vova on 08.11.2014.
- */
 public class PostViewerFragment extends BaseFragment
 {
     public final static String POST_TITLE = "POST_TITLE";
@@ -30,6 +27,15 @@ public class PostViewerFragment extends BaseFragment
     public void onStart() {
         super.onStart();
      }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState!=null)
+        {
+            mDescriptionView.loadUrl(mUrl);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,4 +63,11 @@ public class PostViewerFragment extends BaseFragment
         mDescriptionView.loadDataWithBaseURL(null, mDescription, "text/html", "UTF-8", null);
         mUrlView.setText(mUrl);
     }
-}
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mDescriptionView.saveState(outState);
+    }
+
+    }
