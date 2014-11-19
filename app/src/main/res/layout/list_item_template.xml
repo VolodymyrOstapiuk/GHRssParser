@@ -13,6 +13,7 @@
         android:paddingLeft="5dp"
         android:lineSpacingExtra="2dp"
         android:typeface="sans"
+        android:textStyle="bold"
         />
 
     <LinearLayout
@@ -38,7 +39,7 @@
         android:paddingLeft="5dp"
         android:lineSpacingExtra="2dp"
         android:typeface="sans"
-
+        android:paddingBottom="10dp"
         />
     </LinearLayout>
 </LinearLayout>

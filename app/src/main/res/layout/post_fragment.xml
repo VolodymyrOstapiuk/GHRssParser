@@ -37,7 +37,6 @@
                 android:lineSpacingExtra="2dp"
                 android:typeface="sans"
                 android:textStyle="bold"
-
                 />
             <WebView
                 android:layout_width="wrap_content"
