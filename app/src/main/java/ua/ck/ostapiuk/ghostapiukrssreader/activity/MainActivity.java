@@ -1,7 +1,10 @@
 package ua.ck.ostapiuk.ghostapiukrssreader.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -69,3 +72,4 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
         onPostSelected((Post) savedInstanceState.getSerializable(Constants.POST_ID));
     }
 }
+

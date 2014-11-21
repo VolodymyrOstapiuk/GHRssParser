@@ -1,14 +1,22 @@
 package ua.ck.ostapiuk.ghostapiukrssreader.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -65,7 +73,7 @@ public class PostListFragment extends BaseFragment {
     }
 
     public void refresh() {
-        (new DownloadPostsTask()).execute(new HabraHabrRssParser());
+        executeTaskWithConnectionChecking();
     }
     private class DownloadPostsTask extends AsyncTask<RssParser,Void,List<Post>>
     {
@@ -105,9 +113,44 @@ public class PostListFragment extends BaseFragment {
                 mListener.onPostSelected(mPosts.get(i));
             }
         });
-        (new DownloadPostsTask()).execute(new HabraHabrRssParser());
-
-
+        executeTaskWithConnectionChecking();
     }
 
+    private boolean isConnectionAvailable() {
+        ConnectivityManager manager =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = manager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    private void showWiFiSwitchOnDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+        alertDialog.setTitle("Network");
+        alertDialog.setMessage("Do you want to turn the WiFi?");
+        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+            }
+        });
+        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void executeTaskWithConnectionChecking() {
+        if (isConnectionAvailable()) {
+            (new DownloadPostsTask()).execute(new HabraHabrRssParser());
+        } else {
+            showWiFiSwitchOnDialog();
+        }
+    }
 }
