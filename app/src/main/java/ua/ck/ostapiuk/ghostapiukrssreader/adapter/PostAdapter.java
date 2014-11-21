@@ -12,29 +12,36 @@ import java.util.List;
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
 import ua.ck.ostapiuk.ghostapiukrssreader.model.Post;
 
-/**
- * Created by Vova on 08.11.2014.
- */
 public class PostAdapter extends BaseAdapter {
     private List<Post> mPosts;
     private LayoutInflater mLayoutInflater;
-    public PostAdapter(Context context,List<Post> posts)
-    {
+
+    static class ViewHolder {
+        TextView title;
+        TextView author;
+        TextView date;
+    }
+
+    public PostAdapter(Context context, List<Post> posts) {
         mPosts = posts;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
+
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         View view = convertView;
-        if (view==null)
-        {
-           view = mLayoutInflater.inflate(R.layout.list_item_template,viewGroup,false);
+        if (view == null) {
+            view = mLayoutInflater.inflate(R.layout.list_item_template, viewGroup, false);
         }
         Post post = getItem(i);
-        ((TextView)view.findViewById(R.id.titleTextView)).setText(post.getTitle());
-        ((TextView)view.findViewById(R.id.authorTextView)).setText(post.getAuthor());
-        ((TextView)view.findViewById(R.id.createdAtTextView)).setText(post.getCreatedAt());
-
+        ViewHolder viewHolder = new ViewHolder();
+        viewHolder.title = (TextView) view.findViewById(R.id.titleTextView);
+        viewHolder.author = (TextView) view.findViewById(R.id.authorTextView);
+        viewHolder.date = (TextView) view.findViewById(R.id.createdAtTextView);
+        view.setTag(viewHolder);
+        viewHolder.title.setText(post.getTitle());
+        viewHolder.author.setText(post.getAuthor());
+        viewHolder.date.setText(post.getCreatedAt());
         return view;
 
     }

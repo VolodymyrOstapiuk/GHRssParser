@@ -1,10 +1,8 @@
 package ua.ck.ostapiuk.ghostapiukrssreader.model;
 
-/**
- * Created by Vova on 07.11.2014.
- */
-public class Post
-{
+import java.io.Serializable;
+
+public class Post implements Serializable {
 
     private String title;
     private String description;

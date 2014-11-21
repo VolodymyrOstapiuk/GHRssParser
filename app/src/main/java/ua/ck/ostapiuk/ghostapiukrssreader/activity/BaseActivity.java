@@ -3,10 +3,11 @@ package ua.ck.ostapiuk.ghostapiukrssreader.activity;
 import android.app.Activity;
 import android.os.AsyncTask;
 
-/**
- * Created by Vova on 07.11.2014.
- */
+import ua.ck.ostapiuk.ghostapiukrssreader.R;
+
 public abstract class BaseActivity extends Activity
 {
-
+    public boolean isDualPane() {
+        return getResources().getBoolean(R.bool.isTablet);
+    }
 }

@@ -11,10 +11,11 @@ import ua.ck.ostapiuk.ghostapiukrssreader.adapter.PostAdapter;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostListFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostViewerFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.model.Post;
+import ua.ck.ostapiuk.ghostapiukrssreader.util.constant.Constants;
 
 
 public class MainActivity extends BaseActivity implements PostListFragment.OnPostSelectedListener {
-
+    private Post mPost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,20 +44,29 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
 
     @Override
     public void onPostSelected(Post post) {
-        if (!getResources().getBoolean(R.bool.isTablet)) {
+        mPost = post;
+        if (!isDualPane()) {
             Intent intent = new Intent(this, PostViewerActivity.class);
-            intent.putExtra(PostViewerFragment.POST_TITLE, post.getTitle());
-            intent.putExtra(PostViewerFragment.POST_DESCRIPTION, post.getDescription());
-            intent.putExtra(PostViewerFragment.POST_URL,post.getUrl());
+            intent.putExtra(Constants.POST_ID, post);
             startActivity(intent);
 
         } else {
-            Bundle args = new Bundle();
-            args.putString(PostViewerFragment.POST_TITLE, post.getTitle());
-            args.putString(PostViewerFragment.POST_DESCRIPTION, post.getDescription());
-            args.putString(PostViewerFragment.POST_URL,post.getUrl());
-            PostViewerFragment postViewerFragment = (PostViewerFragment) getFragmentManager().findFragmentById(R.id.post_fragment);
-            postViewerFragment.refresh(args);
+            PostViewerFragment postViewerFragment = (PostViewerFragment) getFragmentManager()
+                    .findFragmentById(R.id.post_fragment);
+            postViewerFragment.refresh(post);
         }
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(Constants.POST_ID, mPost);
+
     }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        onPostSelected((Post) savedInstanceState.getSerializable(Constants.POST_ID));
+    }
+}

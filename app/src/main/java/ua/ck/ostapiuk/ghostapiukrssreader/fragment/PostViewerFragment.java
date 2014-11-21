@@ -10,35 +10,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
+import ua.ck.ostapiuk.ghostapiukrssreader.model.Post;
+import ua.ck.ostapiuk.ghostapiukrssreader.util.constant.Constants;
 
 public class PostViewerFragment extends BaseFragment
 {
-    public final static String POST_TITLE = "POST_TITLE";
-    public final static String POST_DESCRIPTION = "POST_DESCRIPTION";
-    public final static String POST_URL = "POST_URL";
-    private String mTitle;
-    private String mDescription;
-    private String mUrl;
     private TextView mTitleView;
     private WebView mDescriptionView;
     private TextView mUrlView;
-
     @Override
-    public void onStart() {
-        super.onStart();
-     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null)
-        {
-            mDescriptionView.loadUrl(mUrl);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.post_fragment,container,false);
             }
 
@@ -48,26 +30,14 @@ public class PostViewerFragment extends BaseFragment
         mTitleView =(TextView)view.findViewById(R.id.titleTextView);
         mDescriptionView = (WebView)view.findViewById(R.id.descriptionView);
         mUrlView = (TextView)view.findViewById(R.id.urlTextView);
-        mDescriptionView.setBackgroundColor(0x00000000);
+        mDescriptionView.setBackgroundColor(Constants.TRANSPARENT_COLOR);
     }
 
-    @Override
-    public void refresh(Bundle args) {
-        if (args!=null){
-            mTitle = args.getString(POST_TITLE);
-            mDescription = args.getString(POST_DESCRIPTION);
-            mUrl = args.getString(POST_URL);
-
-        }
-        mTitleView.setText(mTitle);
-        mDescriptionView.loadDataWithBaseURL(null, mDescription, "text/html", "UTF-8", null);
-        mUrlView.setText(mUrl);
+    public void refresh(Post post) {
+        mTitleView.setText(post.getTitle());
+        mDescriptionView.loadDataWithBaseURL(null, post.getDescription(), "text/html", "UTF-8", null);
+        mUrlView.setText(post.getUrl());
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mDescriptionView.saveState(outState);
-    }
 
     }

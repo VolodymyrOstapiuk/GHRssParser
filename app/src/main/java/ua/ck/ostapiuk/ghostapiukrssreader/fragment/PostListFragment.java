@@ -15,18 +15,16 @@ import java.util.List;
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
 import ua.ck.ostapiuk.ghostapiukrssreader.adapter.PostAdapter;
 import ua.ck.ostapiuk.ghostapiukrssreader.model.Post;
+import ua.ck.ostapiuk.ghostapiukrssreader.util.constant.Constants;
 import ua.ck.ostapiuk.ghostapiukrssreader.util.parser.HabraHabrRssParser;
 import ua.ck.ostapiuk.ghostapiukrssreader.util.parser.RssParser;
 
-/**
- * Created by Vova on 08.11.2014.
- */
 public class PostListFragment extends BaseFragment {
-    private OnPostSelectedListener listener;
-    private PostAdapter adapter;
+    private OnPostSelectedListener mListener;
+    private PostAdapter mAdapter;
     private ListView mListView;
-    private ProgressBar mProgressBar;
     private List<Post> mPosts;
+    private View mView;
     public PostListFragment() {
         // Required empty public constructor
     }
@@ -36,13 +34,22 @@ public class PostListFragment extends BaseFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.post_list_fragment, container, false);
+        return inflater.inflate(R.layout.post_list_fragment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mListView = (ListView)view.findViewById(R.id.content);
-        mProgressBar = (ProgressBar)view.findViewById(R.id.progress_indicator);
-        return  view;
+        mView = view;
 
     }
 
@@ -50,18 +57,14 @@ public class PostListFragment extends BaseFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            listener = (OnPostSelectedListener) activity;
+            mListener = (OnPostSelectedListener) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException("Activity must implement the OnPostSelectedListener interface");
+            throw new ClassCastException
+                    ("Activity must implement the OnPostSelectedListener interface");
         }
     }
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    public void refresh(Bundle args) {
+    public void refresh() {
         (new DownloadPostsTask()).execute(new HabraHabrRssParser());
     }
     private class DownloadPostsTask extends AsyncTask<RssParser,Void,List<Post>>
@@ -69,18 +72,13 @@ public class PostListFragment extends BaseFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            if(mProgressBar!=null){
-                mProgressBar.setVisibility(View.VISIBLE);
-            }
-            if (mListView!=null){
-                mListView.setVisibility(View.GONE);
-            }
+            showProgressBar(mView);
         }
 
         @Override
         protected List<Post> doInBackground(RssParser... rssParsers) {
             try {
-                return rssParsers[0].getAllPosts();
+                return rssParsers[0].getPosts(Constants.STANDARD_POSTS_COUNT);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -90,23 +88,13 @@ public class PostListFragment extends BaseFragment {
         @Override
         protected void onPostExecute(List<Post> posts) {
             super.onPostExecute(posts);
-            if (posts==null)
-            {
-                throw new NullPointerException("post empty");
-            }
-            adapter =new PostAdapter(getActivity(),posts);
-            if(mProgressBar!=null){
-                mProgressBar.setVisibility(View.GONE);
-            }
-            if (mListView!=null){
-                mListView.setVisibility(View.VISIBLE);
-            }
             mPosts = posts;
-            if (adapter!=null){
-            mListView.setAdapter(adapter);
+            mAdapter = new PostAdapter(getActivity(), posts);
+            mListView.setAdapter(mAdapter);
+            showContent(mView);
             }
         }
-    }
+
 
     @Override
     public void onStart() {
@@ -114,11 +102,12 @@ public class PostListFragment extends BaseFragment {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                listener.onPostSelected(mPosts.get(i));
+                mListener.onPostSelected(mPosts.get(i));
             }
         });
         (new DownloadPostsTask()).execute(new HabraHabrRssParser());
 
 
     }
+
 }

@@ -7,10 +7,26 @@ import android.widget.ProgressBar;
 
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
 
-
-/**
- * Created by Vova on 07.11.2014.
- */
 public abstract class BaseFragment extends Fragment {
-     public abstract void refresh(Bundle args);
+    protected void showContent(View view) {
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_indicator);
+        View content = view.findViewById(R.id.content);
+        if (progressBar != null) {
+            progressBar.setVisibility(View.GONE);
+        }
+        if (content != null) {
+            content.setVisibility(View.VISIBLE);
+        }
+    }
+
+    protected void showProgressBar(View view) {
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_indicator);
+        View content = view.findViewById(R.id.content);
+        if (content != null) {
+            content.setVisibility(View.GONE);
+        }
+        if (progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+    }
  }
