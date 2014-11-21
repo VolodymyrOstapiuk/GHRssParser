@@ -18,6 +18,10 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (getIntent().getExtras() != null) {
+            mPost = (Post) getIntent().getExtras().getSerializable(Constants.POST_ID);
+            onPostSelected(mPost);
+        }
     }
 
 

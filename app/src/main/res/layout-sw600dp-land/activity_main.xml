@@ -20,4 +20,4 @@
         android:layout_height="match_parent"
         android:layout_weight="75"
         tools:layout="@layout/post_fragment"></fragment>
-    </LinearLayout>
+</LinearLayout>

@@ -18,6 +18,7 @@ public class PostViewerFragment extends BaseFragment
     private TextView mTitleView;
     private WebView mDescriptionView;
     private TextView mUrlView;
+    private View mView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,14 +31,18 @@ public class PostViewerFragment extends BaseFragment
         mTitleView =(TextView)view.findViewById(R.id.titleTextView);
         mDescriptionView = (WebView)view.findViewById(R.id.descriptionView);
         mUrlView = (TextView)view.findViewById(R.id.urlTextView);
+        mView = view;
         mDescriptionView.setBackgroundColor(Constants.TRANSPARENT_COLOR);
     }
 
     public void refresh(Post post) {
-        mTitleView.setText(post.getTitle());
-        mDescriptionView.loadDataWithBaseURL(null, post.getDescription(), "text/html", "UTF-8", null);
-        mUrlView.setText(post.getUrl());
+        if (post == null) {
+            showEmptyView(mView);
+        } else {
+            mTitleView.setText(post.getTitle());
+            mDescriptionView.loadDataWithBaseURL(null, post.getDescription(), "text/html", "UTF-8", null);
+            mUrlView.setText(post.getUrl());
+        }
+
     }
-
-
     }
