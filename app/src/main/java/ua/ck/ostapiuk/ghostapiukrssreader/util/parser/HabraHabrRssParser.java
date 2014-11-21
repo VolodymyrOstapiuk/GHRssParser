@@ -25,7 +25,8 @@ public class HabraHabrRssParser extends RssParser {
         List<Post> posts = new ArrayList<Post>();
 
         JSONObject jObj = getJsonFromUrl(RSS_URL + count.toString());
-        JSONArray postsJson = jObj.getJSONObject("responseData").getJSONObject("feed").getJSONArray("entries");
+        JSONArray postsJson = jObj.getJSONObject("responseData").getJSONObject("feed")
+                .getJSONArray("entries");
         for (int i = 0; i < postsJson.length(); i++) {
             JSONObject jsonObject = postsJson.getJSONObject(i);
             Post post = new Post(jsonObject.getString("title"), jsonObject.getString("content")
