@@ -2,14 +2,20 @@ package ua.ck.ostapiuk.ghostapiukrssreader.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +39,36 @@ public class PostListFragment extends BaseFragment {
     private ListView mListView;
     private List<Post> mPosts;
     private View mView;
+    private final int NOTIFICATION_ID = 001;
     public PostListFragment() {
         // Required empty public constructor
     }
 
+    /*private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int status = intent.getExtras().getInt(Constants.STATUS_ID);
+            switch (status) {
+                case Constants.STATUS_STARTED:
+                    displayServiceStartedNotification();
+                    break;
+                case Constants.STATUS_RUN:
+                     Post newPost = (Post)intent.getExtras().getSerializable(Constants.POST_ID);
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity())
+                            .setContentTitle("Новая запись")
+                            .setContentText(newPost.getTitle());
+                    Intent resultIntent = new Intent(getActivity(),getActivity().getClass());
+                    resultIntent.putExtra(Constants.POST_ID,newPost);
+                    PendingIntent resultPendingIntent = PendingIntent.getActivity(getActivity(),0,resultIntent
+                            ,PendingIntent.FLAG_UPDATE_CURRENT);
+                    builder.setContentIntent(resultPendingIntent);
+                    NotificationManager manager = (NotificationManager)
+                            getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+                    manager.notify(NOTIFICATION_ID,builder.build());
+                    break;
+            }
+        }
+    };*/
     public interface OnPostSelectedListener {
         public void onPostSelected(Post post);
     }
@@ -45,6 +77,8 @@ public class PostListFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+//        getActivity().registerReceiver(mReceiver,new IntentFilter(Constants.BROADCAST_FILTER));
+        displayServiceStartedNotification();
     }
 
     @Override
@@ -152,5 +186,19 @@ public class PostListFragment extends BaseFragment {
         } else {
             showWiFiSwitchOnDialog();
         }
+    }
+
+    private void displayServiceStartedNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity())
+                .setContentTitle("Сервис начал работу")
+                .setContentText("Сервис по проверке нових записей начал роботу");
+        Intent resultIntent = new Intent(getActivity(), getActivity().getClass());
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(getActivity(), 0, resultIntent
+                , PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(resultPendingIntent);
+        NotificationManager manager = (NotificationManager)
+                getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(NOTIFICATION_ID, builder.build());
+
     }
 }
