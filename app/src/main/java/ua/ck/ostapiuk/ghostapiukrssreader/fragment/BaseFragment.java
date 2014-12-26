@@ -8,7 +8,7 @@ import android.widget.ProgressBar;
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
 
 public abstract class BaseFragment extends Fragment {
-    protected void showContent(View view) {
+    public void showContent(View view) {
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_indicator);
         View content = view.findViewById(R.id.content);
         View emptyView = view.findViewById(R.id.empty_view);
@@ -23,7 +23,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    protected void showProgressBar(View view) {
+    public void showProgressBar(View view) {
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_indicator);
         View content = view.findViewById(R.id.content);
         View emptyView = view.findViewById(R.id.empty_view);
@@ -39,7 +39,7 @@ public abstract class BaseFragment extends Fragment {
 
     }
 
-    protected void showEmptyView(View view) {
+    public void showEmptyView(View view) {
         ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_indicator);
         View content = view.findViewById(R.id.content);
         View emptyView = view.findViewById(R.id.empty_view);

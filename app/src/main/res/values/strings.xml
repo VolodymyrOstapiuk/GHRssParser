@@ -7,4 +7,6 @@
     <string name="connection_error">Connection Error</string>
     <string name="xml_error">Xml Error</string>
     <string name="refresh">Refresh</string>
+    <string name="favorite">Favorites</string>
+    <string name="favorite_add">Добавить в любимое</string>
 </resources>

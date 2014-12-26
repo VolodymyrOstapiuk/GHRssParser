@@ -10,10 +10,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
-import ua.ck.ostapiuk.ghostapiukrssreader.model.Post;
+import ua.ck.ostapiuk.ghostapiukrssreader.entity.Entry;
 
-public class PostAdapter extends BaseAdapter {
-    private List<Post> mPosts;
+public class EntryAdapter extends BaseAdapter {
+    private List<Entry> mEntries;
     private LayoutInflater mLayoutInflater;
 
     static class ViewHolder {
@@ -22,8 +22,8 @@ public class PostAdapter extends BaseAdapter {
         TextView date;
     }
 
-    public PostAdapter(Context context, List<Post> posts) {
-        mPosts = posts;
+    public EntryAdapter(Context context, List<Entry> entries) {
+        mEntries = entries;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -33,15 +33,15 @@ public class PostAdapter extends BaseAdapter {
         if (view == null) {
             view = mLayoutInflater.inflate(R.layout.list_item_template, viewGroup, false);
         }
-        Post post = getItem(i);
+        Entry entry = getItem(i);
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.title = (TextView) view.findViewById(R.id.titleTextView);
         viewHolder.author = (TextView) view.findViewById(R.id.authorTextView);
         viewHolder.date = (TextView) view.findViewById(R.id.createdAtTextView);
         view.setTag(viewHolder);
-        viewHolder.title.setText(post.getTitle());
-        viewHolder.author.setText(post.getAuthor());
-        viewHolder.date.setText(post.getCreatedAt());
+        viewHolder.title.setText(entry.getTitle());
+        viewHolder.author.setText(entry.getAuthor());
+        viewHolder.date.setText(entry.getPublishedDate());
         return view;
 
     }
@@ -52,13 +52,13 @@ public class PostAdapter extends BaseAdapter {
     }
 
     @Override
-    public Post getItem(int i) {
-        return mPosts.get(i);
+    public Entry getItem(int i) {
+        return mEntries.get(i);
     }
 
     @Override
     public int getCount() {
-        return mPosts.size();
+        return mEntries.size();
     }
 
 }
