@@ -50,6 +50,13 @@
                 android:id="@+id/urlTextView"
                 android:visibility="visible"
                 />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share"
+                android:id="@+id/share"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
     <LinearLayout

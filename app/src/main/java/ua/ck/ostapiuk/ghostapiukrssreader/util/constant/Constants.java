@@ -17,5 +17,7 @@ public class Constants {
     public final static int DATABASE_MODE = 002;
     public final static int INTERNET_MODE = 001;
     public final static String MODE_ID = "MODE";
+    public final static String USER_KEY = "USER";
+    public final static String PREFERENCE_NAME = "PREFERENCE";
 
 }

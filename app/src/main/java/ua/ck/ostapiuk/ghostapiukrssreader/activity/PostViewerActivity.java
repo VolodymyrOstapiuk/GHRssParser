@@ -6,10 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
-import ua.ck.ostapiuk.ghostapiukrssreader.entity.DaoMaster;
-import ua.ck.ostapiuk.ghostapiukrssreader.entity.DaoSession;
+import ua.ck.ostapiuk.ghostapiukrssreader.database.DaoSession;
 import ua.ck.ostapiuk.ghostapiukrssreader.entity.Entry;
-import ua.ck.ostapiuk.ghostapiukrssreader.entity.EntryDao;
+import ua.ck.ostapiuk.ghostapiukrssreader.fragment.LoginFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostViewerFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.repository.EntryRepository;
 import ua.ck.ostapiuk.ghostapiukrssreader.util.constant.Constants;
@@ -24,7 +23,7 @@ public class PostViewerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_view_activity);
         mEntry = (Entry) getIntent().getExtras().getSerializable(Constants.POST_ID);
-        PostViewerFragment postViewerFragment = (PostViewerFragment) getFragmentManager()
+        PostViewerFragment postViewerFragment = (PostViewerFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.post_fragment);
         postViewerFragment.refresh(mEntry);
 
@@ -49,6 +48,9 @@ public class PostViewerActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.favorite_add) {
             EntryRepository.insertOrUpdate(this, mEntry);
+        } else {
+            LoginFragment loginFragment = new LoginFragment();
+            loginFragment.show(getSupportFragmentManager(), "Login");
         }
         return super.onOptionsItemSelected(item);
     }

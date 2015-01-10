@@ -1,9 +1,9 @@
 package ua.ck.ostapiuk.ghostapiukrssreader.util.connection;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.Fragment;
 
 
 public class ConnectionChecker {

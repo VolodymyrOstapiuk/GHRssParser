@@ -4,9 +4,9 @@ import android.content.Context;
 
 import java.util.List;
 
-import ua.ck.ostapiuk.ghostapiukrssreader.GHOstapiukRssReaderApplication;
+import ua.ck.ostapiuk.ghostapiukrssreader.applicatioon.GHOstapiukRssReaderApplication;
 import ua.ck.ostapiuk.ghostapiukrssreader.entity.Entry;
-import ua.ck.ostapiuk.ghostapiukrssreader.entity.EntryDao;
+import ua.ck.ostapiuk.ghostapiukrssreader.database.EntryDao;
 
 public class EntryRepository {
     public static void insertOrUpdate(Context context, Entry entry) {

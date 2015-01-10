@@ -9,4 +9,8 @@
     <string name="refresh">Refresh</string>
     <string name="favorite">Favorites</string>
     <string name="favorite_add">Добавить в любимое</string>
+    <string name="facebook_id_login">196320333871899</string>
+    <string name="login">Войти</string>
+    <string name="user_information">Информация о пользователе</string>
+    <string name="cancel">Отменить</string>
 </resources>
