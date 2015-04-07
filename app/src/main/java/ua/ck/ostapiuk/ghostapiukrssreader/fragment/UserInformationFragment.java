@@ -78,7 +78,7 @@ public class UserInformationFragment extends DialogFragment {
         SharedPreferences preferences = getActivity().getSharedPreferences(Constants.PREFERENCE_NAME
                 , Context.MODE_PRIVATE);
         Gson gson = new Gson();
-        String jsonObject = preferences.getString(Constants.USER_KEY, "");
+        String jsonObject = preferences.getString(Constants.USER_KEY, null);
         if (jsonObject != null) {
             User user = gson.fromJson(jsonObject, User.class);
             mNameTextView.setText("Name:" + user.getName());
