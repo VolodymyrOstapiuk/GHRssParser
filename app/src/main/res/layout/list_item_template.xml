@@ -10,7 +10,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/titleTextView"
         android:layout_gravity="center_horizontal"
-        android:paddingLeft="5dp"
+        android:padding="@dimen/list_item_padding"
         android:lineSpacingExtra="2dp"
         android:typeface="sans"
         android:textStyle="bold"
@@ -25,8 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/authorTextView" 
-        android:layout_gravity="left"
-        android:paddingLeft="5dp"
+        android:layout_gravity="start"
+        android:padding="@dimen/list_item_padding"
         android:lineSpacingExtra="2dp"
         android:typeface="sans"
         android:textStyle="bold"
@@ -35,11 +35,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/createdAtTextView"
-        android:layout_gravity="left"
-        android:paddingLeft="5dp"
+        android:layout_gravity="start"
+        android:padding="@dimen/list_item_padding"
         android:lineSpacingExtra="2dp"
         android:typeface="sans"
-        android:paddingBottom="10dp"
         />
     </LinearLayout>
 </LinearLayout>
