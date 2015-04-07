@@ -16,5 +16,5 @@
         android:id="@+id/favorite_list"
         android:icon="@drawable/ic_action_toggle_star_outline"
         android:title="@string/favorite"
-        android:showAsAction="always" />
+        android:showAsAction="never" />
 </menu>

@@ -25,7 +25,7 @@ public class EntryRepository {
         return getEntryDao(context).loadAll();
     }
 
-    private static EntryDao getEntryDao(Context context) {
+    public static EntryDao getEntryDao(Context context) {
         return ((GHOstapiukRssReaderApplication) context.getApplicationContext())
                 .getDaoSession().getEntryDao();
     }

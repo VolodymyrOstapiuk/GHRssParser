@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
+import ua.ck.ostapiuk.ghostapiukrssreader.database.EntryDao;
 import ua.ck.ostapiuk.ghostapiukrssreader.entity.Entry;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.LoginFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostListFragment;
@@ -26,6 +29,7 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
     private PostViewerFragment mPostViewerFragment;
     private LoginFragment mLoginFragment;
     private UserInformationFragment mUserInformationFragment;
+    private boolean isEntryFavorite = false;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -94,7 +98,20 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
                     mPostListFragment.refresh(Constants.DATABASE_MODE);
                     break;
                 case R.id.favorite_add:
-                    EntryRepository.insertOrUpdate(this, mEntry);
+                    if (mEntry!=null) {
+                        if (!isEntryFavorite(mEntry)) {
+                            EntryRepository.insertOrUpdate(this, mEntry);
+                            isEntryFavorite = true;
+                            invalidateOptionsMenu();
+                        } else {
+                            EntryRepository.getEntryDao(this).queryBuilder()
+                                .where(EntryDao.Properties.Title.eq(mEntry.getTitle()))
+                                .buildDelete().executeDeleteWithoutDetachingEntities();
+                            isEntryFavorite = false;
+                            invalidateOptionsMenu();
+
+                        }
+                    }
                     break;
                 case R.id.login:
                     mLoginFragment.show(getSupportFragmentManager(), "Login");
@@ -119,6 +136,7 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
             startActivity(intent);
 
         } else {
+            invalidateOptionsMenu();
             PostViewerFragment postViewerFragment =
                     (PostViewerFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.post_fragment);
@@ -155,8 +173,31 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
             }
         }
     }
+    public boolean isEntryFavorite(Entry entry){
+        boolean isEntryFavourite;
+        if (entry!=null) {
+            List<Entry> entries = EntryRepository.getEntryDao(this).queryBuilder()
+                .where(EntryDao.Properties.Title.eq(entry.getTitle()))
+                .list();
+            return entries.size() > 0;
+        }
+        else {
+            return false;
+        }
+    }
 
-
-
-}
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (isDualPane()) {
+            MenuItem item = menu.findItem(R.id.favorite_add);
+            if (isEntryFavorite(mEntry)) {
+                item.setIcon(R.drawable.ic_action_toggle_star);
+            } else {
+                item.setIcon(R.drawable.ic_action_toggle_star_outline);
+            }
+            return true;
+        }
+        return true;
+    }
+    }
 
