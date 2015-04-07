@@ -46,6 +46,7 @@ public class DownloadEntriesTask extends AsyncTask<String, Void, List<Entry>> {
         super.onPostExecute(entries);
         mFragment.setAdapterEntries(entries);
         mFragment.showContent(mView);
+        mFragment.selectFirstEntry();
     }
 
     public void executeWithConnectionChecking(String... params) {

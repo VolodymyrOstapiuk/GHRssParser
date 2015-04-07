@@ -93,5 +93,8 @@ public class PostListFragment extends BaseFragment {
         mEntries = entries;
         mListView.setAdapter(new EntryAdapter(getActivity(), entries));
     }
+    public void selectFirstEntry(){
+        mListener.onPostSelected(mEntries.get(0));
+    }
 
 }
