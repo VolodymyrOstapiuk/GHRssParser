@@ -7,7 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
 import ua.ck.ostapiuk.ghostapiukrssreader.entity.Entry;
@@ -38,10 +42,18 @@ public class EntryAdapter extends BaseAdapter {
         viewHolder.title = (TextView) view.findViewById(R.id.titleTextView);
         viewHolder.author = (TextView) view.findViewById(R.id.authorTextView);
         viewHolder.date = (TextView) view.findViewById(R.id.createdAtTextView);
+        SimpleDateFormat rssFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH);
+        Date date = new Date();
+        try {
+            date = rssFormat.parse(entry.getPublishedDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM HH:mm");
         view.setTag(viewHolder);
         viewHolder.title.setText(entry.getTitle());
         viewHolder.author.setText(entry.getAuthor());
-        viewHolder.date.setText(entry.getPublishedDate());
+        viewHolder.date.setText(dateFormat.format(date));
         return view;
 
     }
