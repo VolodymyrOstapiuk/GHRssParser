@@ -13,12 +13,11 @@
         android:showAsAction="always" />
     <item
         android:id="@+id/favorite_list"
-        android:icon="@drawable/ic_action_toggle_star_outline"
         android:title="@string/favorite"
-        android:showAsAction="always" />
+        android:showAsAction="never" />
     <item
         android:id="@+id/favorite_add"
-        android:icon="@drawable/ic_action_toggle_star"
+        android:icon="@drawable/ic_action_toggle_star_outline"
         android:title="@string/favorite_add"
         android:showAsAction="always" />
 </menu>

@@ -95,6 +95,7 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
                     break;
                 case R.id.favorite_add:
                     EntryRepository.insertOrUpdate(this, mEntry);
+                    break;
                 case R.id.login:
                     mLoginFragment.show(getSupportFragmentManager(), "Login");
                     break;
@@ -142,10 +143,6 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(receiver);
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply();
 
     }
 
@@ -159,14 +156,6 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        SharedPreferences preferences = getSharedPreferences(Constants.PREFERENCE_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.clear();
-        editor.apply();
-    }
 
 
 }
