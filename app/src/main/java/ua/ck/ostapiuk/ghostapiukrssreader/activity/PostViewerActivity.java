@@ -13,6 +13,7 @@ import ua.ck.ostapiuk.ghostapiukrssreader.database.EntryDao;
 import ua.ck.ostapiuk.ghostapiukrssreader.entity.Entry;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.LoginFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostViewerFragment;
+import ua.ck.ostapiuk.ghostapiukrssreader.fragment.UserInformationFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.repository.EntryRepository;
 import ua.ck.ostapiuk.ghostapiukrssreader.util.constant.Constants;
 
@@ -67,8 +68,8 @@ public class PostViewerActivity extends BaseActivity {
                 }
             }
         } else {
-            LoginFragment loginFragment = new LoginFragment();
-            loginFragment.show(getSupportFragmentManager(), "Login");
+            UserInformationFragment userInformationFragment = new UserInformationFragment();
+            userInformationFragment.show(getSupportFragmentManager(), "Login");
         }
         return super.onOptionsItemSelected(item);
     }
