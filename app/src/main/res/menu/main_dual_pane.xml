@@ -4,9 +4,6 @@
         android:id="@+id/login"
         android:title="@string/login" />
     <item
-        android:id="@+id/user_information"
-        android:title="@string/user_information" />
-    <item
         android:id="@+id/refresh"
         android:icon="@drawable/ic_action_refresh"
         android:title="@string/refresh"

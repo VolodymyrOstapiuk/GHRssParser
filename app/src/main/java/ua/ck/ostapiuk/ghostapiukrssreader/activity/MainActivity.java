@@ -14,10 +14,8 @@ import java.util.List;
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
 import ua.ck.ostapiuk.ghostapiukrssreader.database.EntryDao;
 import ua.ck.ostapiuk.ghostapiukrssreader.entity.Entry;
-import ua.ck.ostapiuk.ghostapiukrssreader.fragment.LoginFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostListFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostViewerFragment;
-import ua.ck.ostapiuk.ghostapiukrssreader.fragment.UserInformationFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.repository.EntryRepository;
 import ua.ck.ostapiuk.ghostapiukrssreader.service.NewPostsCheckerService;
 import ua.ck.ostapiuk.ghostapiukrssreader.util.constant.Constants;
@@ -27,8 +25,6 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
     private Entry mEntry;
     private PostListFragment mPostListFragment;
     private PostViewerFragment mPostViewerFragment;
-    private LoginFragment mLoginFragment;
-    private UserInformationFragment mUserInformationFragment;
     private boolean isEntryFavorite = false;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -45,8 +41,6 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
         setContentView(R.layout.activity_main);
         registerReceiver(receiver, new IntentFilter(Constants.BROADCAST_FILTER));
         startService(new Intent(this, NewPostsCheckerService.class));
-        mLoginFragment = new LoginFragment();
-        mUserInformationFragment = new UserInformationFragment();
         mPostListFragment = ((PostListFragment) getSupportFragmentManager().
                 findFragmentById(R.id.post_list_fragment));
         mPostViewerFragment = ((PostViewerFragment) getSupportFragmentManager()
@@ -83,12 +77,9 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
                     mPostListFragment.refresh(Constants.DATABASE_MODE);
                     break;
                 case R.id.login:
-                    mLoginFragment.show(getSupportFragmentManager(), "Login");
+                    startActivity(new Intent(this,LoginActivity.class));
                     break;
-                case R.id.user_information:
-                    mUserInformationFragment.show(getSupportFragmentManager(), "UserInform");
-                    break;
-            }
+                          }
         } else {
             switch (id) {
                 case R.id.refresh:
@@ -114,10 +105,7 @@ public class MainActivity extends BaseActivity implements PostListFragment.OnPos
                     }
                     break;
                 case R.id.login:
-                    mLoginFragment.show(getSupportFragmentManager(), "Login");
-                    break;
-                case R.id.user_information:
-                    mUserInformationFragment.show(getSupportFragmentManager(), "UserInform");
+                    startActivity(new Intent(this,LoginActivity.class));
                     break;
 
 

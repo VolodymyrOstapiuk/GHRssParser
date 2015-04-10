@@ -11,9 +11,7 @@ import ua.ck.ostapiuk.ghostapiukrssreader.R;
 import ua.ck.ostapiuk.ghostapiukrssreader.database.DaoSession;
 import ua.ck.ostapiuk.ghostapiukrssreader.database.EntryDao;
 import ua.ck.ostapiuk.ghostapiukrssreader.entity.Entry;
-import ua.ck.ostapiuk.ghostapiukrssreader.fragment.LoginFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.fragment.PostViewerFragment;
-import ua.ck.ostapiuk.ghostapiukrssreader.fragment.UserInformationFragment;
 import ua.ck.ostapiuk.ghostapiukrssreader.repository.EntryRepository;
 import ua.ck.ostapiuk.ghostapiukrssreader.util.constant.Constants;
 
@@ -68,17 +66,19 @@ public class PostViewerActivity extends BaseActivity {
                 }
             }
         } else {
-            UserInformationFragment userInformationFragment = new UserInformationFragment();
-            userInformationFragment.show(getSupportFragmentManager(), "Login");
+            startActivity(new Intent(this,LoginActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
     public boolean isEntryFavorite(Entry entry){
         boolean isEntryFavourite;
-        List<Entry> entries = EntryRepository.getEntryDao(this).queryBuilder()
-            .where(EntryDao.Properties.Title.eq(entry.getTitle()))
-            .list();
-        return entries.size() > 0;
+        if (entry!=null) {
+            List<Entry> entries = EntryRepository.getEntryDao(this).queryBuilder()
+                .where(EntryDao.Properties.Title.eq(entry.getTitle()))
+                .list();
+            return entries.size() > 0;
+        }
+        return false;
        }
 
     @Override
