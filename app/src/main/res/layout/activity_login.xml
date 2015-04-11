@@ -40,15 +40,14 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="@dimen/login_username_text_size"
                 android:visibility="gone"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/birthday"
-                android:text="BirthDay"
-                android:textSize="10sp"
+                android:textSize="@dimen/login_second_text_size"
                 android:visibility="gone"/>
 
             <TextView
@@ -56,8 +55,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/location"
-                android:text="Location"
-                android:textSize="10sp"
+                android:textSize="@dimen/login_second_text_size"
                 android:visibility="gone"/>
 
             <TextView
@@ -65,8 +63,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/link"
-                android:text="Link"
-                android:textSize="10sp"
+                android:textSize="@dimen/login_second_text_size"
                 android:visibility="gone"/>
 
             <TextView
@@ -74,8 +71,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/languages"
-                android:text="Languages"
-                android:textSize="10sp"
+                android:textSize="@dimen/login_second_text_size"
                 android:visibility="gone"/>
 </LinearLayout>
 </LinearLayout>
