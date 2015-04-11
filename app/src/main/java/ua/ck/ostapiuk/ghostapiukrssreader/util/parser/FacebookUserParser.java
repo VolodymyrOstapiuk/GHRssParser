@@ -24,7 +24,7 @@ public class FacebookUserParser {
         user.setUsername(graphUser.getUsername());
         user.setTimezone((Integer) graphUser.getProperty("timezone"));
         user.setLocale((String) graphUser.getProperty("locale"));
-        user.setImage("http://graph.facebook.com/" + graphUser.getId() + "/picture");
+        user.setImage("https://graph.facebook.com/" + graphUser.getId() + "/picture");
         JSONArray languages = (JSONArray) graphUser.getProperty("languages");
         if (languages != null) {
             if (languages.length() > 0) {

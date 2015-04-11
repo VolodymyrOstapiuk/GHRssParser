@@ -21,10 +21,12 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ua.ck.ostapiuk.ghostapiukrssreader.R;
 import ua.ck.ostapiuk.ghostapiukrssreader.entity.User;
@@ -105,12 +107,10 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.Conne
 //                    editor.apply();
                     mSignInButton.setVisibility(View.GONE);
                     mUserImage.setVisibility(View.VISIBLE);
-                    if (currentUser.getImage()!=null){
+                    if (currentUser.getImage()!=null) {
+                        Log.i("Login", currentUser.getImage());
                         Picasso.with(mUserImage.getContext())
                             .load(currentUser.getImage()).into(mUserImage);
-                    } else {
-                        Picasso.with(mUserImage.getContext())
-                            .load(R.drawable.ic_user_no_frame).into(mUserImage);
                     }
                     mUsername.setVisibility(View.VISIBLE);
                     mUsername.setText(currentUser.getFirstName() + " " + currentUser.getLastName());
@@ -197,12 +197,9 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.Conne
             mFacebookLoginButton.setVisibility(View.GONE);
             mSignOutButton.setVisibility(View.VISIBLE);
             mUserImage.setVisibility(View.VISIBLE);
-            if (currentUser.getImage()!=null){
+            if (currentUser.getImage()!=null) {
                 Picasso.with(mUserImage.getContext())
                     .load(currentUser.getImage()).into(mUserImage);
-            } else {
-                Picasso.with(mUserImage.getContext())
-                    .load(R.drawable.ic_user_no_frame).into(mUserImage);
             }
             mUsername.setVisibility(View.VISIBLE);
             mUsername.setText(currentUser.getName());
