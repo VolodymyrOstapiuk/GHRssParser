@@ -32,9 +32,15 @@ public class ShareDialog extends DialogFragment implements View.OnClickListener,
     private ShareAdapter mAdapter;
     private Entry mEntry;
     private UiLifecycleHelper helper;
-
-    public ShareDialog(Entry mEntry) {
-        this.mEntry = mEntry;
+    public static final String ENTRY_KEY = "entry";
+    public static ShareDialog newInstance(Entry entry){
+        ShareDialog dialog = new ShareDialog();
+        Bundle args = new Bundle();
+        args.putSerializable(ENTRY_KEY,entry);
+        dialog.setArguments(args);
+        return dialog;
+    }
+    public ShareDialog(){
     }
 
     @Override
@@ -66,6 +72,9 @@ public class ShareDialog extends DialogFragment implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         helper = new UiLifecycleHelper(getActivity(), null);
         helper.onCreate(savedInstanceState);
+        if (savedInstanceState!=null){
+            mEntry = (Entry)savedInstanceState.getSerializable(ENTRY_KEY);
+        }
     }
 
     @Override

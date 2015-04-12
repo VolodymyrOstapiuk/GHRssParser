@@ -54,7 +54,7 @@ public class PostViewerFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.share) {
-            ShareDialog dialog = new ShareDialog(mEntry);
+            ShareDialog dialog = ShareDialog.newInstance(mEntry);
             dialog.show(getActivity().getSupportFragmentManager(), "Share");
         }
     }
